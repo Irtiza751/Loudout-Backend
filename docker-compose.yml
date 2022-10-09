@@ -1,0 +1,14 @@
+services:
+  dev-db:
+    image: docker.io/postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: loudoutPass
+      POSTGRES_DB: LoudoutDB
+    networks:
+      - loudout
+
+networks:
+  loudout:
