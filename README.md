@@ -42,7 +42,7 @@ $ npm run test:cov
 
 
 #### UI Design
-![thumbnail]()![cover](https://user-images.githubusercontent.com/91867702/194766391-483072c4-ef3f-4658-a6dd-6b07a06d8063.jpg))
+![thumbnail]()![cover](https://user-images.githubusercontent.com/91867702/194766391-483072c4-ef3f-4658-a6dd-6b07a06d8063.jpg)
 
 ## License
 
