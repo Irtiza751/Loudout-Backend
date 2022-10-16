@@ -1,14 +1,16 @@
+version: '3.8'
 services:
   dev-db:
-    image: docker.io/postgres
+    image: docker.io/postgres:14.1-alpine
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: loudoutPass
       POSTGRES_DB: LoudoutDB
+    volumes:
+      - ./loudout_data:/var/lib/postgresql/data
     networks:
-      - loudout
-
+      - freecodecamp
 networks:
-  loudout:
+  freecodecamp:
