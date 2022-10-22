@@ -41,10 +41,8 @@ $ npm run test:cov
 ```
 
 
-#### [UI Design Link](https://www.figma.com/community/file/1141802549430883100)
-Designed by [@MunirSr](https://www.figma.com/@MunirSr)
-![thumbnail](https://user-images.githubusercontent.com/91867702/189591629-6b8dd1e1-c6ed-4de8-bcca-598dd6078ed0.jpg)
-
+#### UI Design
+![thumbnail]()![cover](https://user-images.githubusercontent.com/91867702/194766391-483072c4-ef3f-4658-a6dd-6b07a06d8063.jpg)
 
 ## License
 

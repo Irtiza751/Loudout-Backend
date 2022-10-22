@@ -11,6 +11,6 @@ services:
     volumes:
       - ./loudout_data:/var/lib/postgresql/data
     networks:
-      - freecodecamp
+      - loudout_network
 networks:
-  freecodecamp:
+  loudout_network:
