@@ -6,6 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class AuthService {
     constructor(private prisma: PrismaService) { }
 
+    // @TODO hash the password before saving it into the DB.
     saveUser(user: Prisma.UserCreateInput) {
         return this.prisma.user.create({ data: user });
     }
