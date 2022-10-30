@@ -1,12 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AuthService {
     constructor(private prisma: PrismaService) { }
 
-    saveUser(user: Prisma.UserCreateInput) {
+    async saveUser(user: Prisma.UserCreateInput) {
+        // hashing user password before saving into the database.
+        const hashPassword = await bcrypt.hash(user.password, 10);
+        // assigning the auth token to the user.
+        const token = jwt.sign(user.email, process.env.JWT_SECRET);
+
+        Object.assign(user, { password: hashPassword, tokens: [token]});
         return this.prisma.user.create({ data: user });
     }
 
