@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 export interface User {
@@ -9,33 +9,35 @@ export interface User {
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) { }
 
     // signup/register user
     @Post('signup')
-    signup(@Body() user: User) {
-        return this.authService.saveUser(user);
+    async signup(@Body() user: User) {
+        try {
+            return await this.authService.saveUser(user);
+        } catch (error) {
+            if (error.meta.target[0]) {
+                throw new HttpException('Email already exist', HttpStatus.CONFLICT);
+            }
+        }
     }
 
     // signin/login user
     @Post('signin')
     async signin(@Body() user: User) {
-        const userData = await this.authService.signinUser(user);
-        if(userData) {
+        try {
+            const userData = await this.authService.signinUser(user);
             return userData;
+        } catch (error) {
+            throw new HttpException('No user found with this email.', HttpStatus.NOT_FOUND);
         }
-        
-        return { error: 'Sorry, No user found with this name!'}
     }
 
-    // get user info
-    @Get('me/:id')
-    me(@Param('id') id: string) {
-        return this.authService.getUserById(id);
-    }
-
-    @Get('/users')
-    users() {
-        return this.authService.getUsers();
+    // user profile info
+    @Get('me')
+    userProfile(@Req() req: any) {
+        const email = req.headers.user;
+        return this.authService.getUserById(email);
     }
 }

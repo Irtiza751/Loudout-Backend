@@ -16,7 +16,10 @@ export class AuthService {
         const token = this.generateJWT(user);
 
         Object.assign(user, { password: hashPassword, tokens: [token] });
-        return this.prisma.user.create({ data: user });
+        return this.prisma.user.create({ 
+            data: user,
+            select: { id: true, name: true, email: true, profileImg: true, tokens: true }
+         });
     }
 
     // signin user
@@ -29,7 +32,7 @@ export class AuthService {
         if(passwordVerified) {
             const token = this.generateJWT(user);
             const signedUser = this.prisma.user.update({
-                select: { email: true, password: true, name: true, profileImg: true },
+                select: { email: true, name: true, profileImg: true, tokens: true },
                 where: { email: user.email },
                 data: { tokens: [token] }
             });
@@ -46,15 +49,10 @@ export class AuthService {
     }
 
     // get the signle user with the provided email
-    getUserById(id: string) {
+    getUserById(email: string) {
         return this.prisma.user.findUnique({
-            where: { id: Number(id) }
+            where: { email }
         });
-    }
-
-    // for testing purpose get all saved users.
-    getUsers() {
-        return this.prisma.user.findMany();
     }
 
     private generateJWT(user: User) {
