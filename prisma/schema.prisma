@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  email       String   @unique @db.VarChar(250)
-  name        String   @db.VarChar(250)
-  password    String
-  profile_img String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
+  id         String      @id @default(uuid())
+  email      String   @unique @db.VarChar(250)
+  name       String   @db.VarChar(250)
+  password   String
+  profileImg String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  tokens     String[]
 }
